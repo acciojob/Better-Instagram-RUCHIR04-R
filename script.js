@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let draggedItem = null;
 
     gridItems.forEach(item => {
-        item.addEventListener('dragstart', (e) => {
+        item.addEventListener('dragstart', () => {
             draggedItem = item;
             setTimeout(() => {
                 item.style.opacity = '0.4';
@@ -39,8 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 let tempBackground = window.getComputedStyle(draggedItem).backgroundImage;
                 draggedItem.style.backgroundImage = window.getComputedStyle(item).backgroundImage;
                 item.style.backgroundImage = tempBackground;
+
+                // Swap text labels
+                let tempText = draggedItem.querySelector("span").innerText;
+                draggedItem.querySelector("span").innerText = item.querySelector("span").innerText;
+                item.querySelector("span").innerText = tempText;
             }
             item.style.opacity = '1';
         });
     });
 });
+
