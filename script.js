@@ -1,11 +1,10 @@
-//your code here
 document.addEventListener('DOMContentLoaded', () => {
     const gridItems = document.querySelectorAll('.grid-item');
 
     let draggedItem = null;
 
     gridItems.forEach(item => {
-        item.addEventListener('dragstart', () => {
+        item.addEventListener('dragstart', (e) => {
             draggedItem = item;
             setTimeout(() => {
                 item.style.opacity = '0.4';
@@ -35,9 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         item.addEventListener('drop', () => {
-            if (draggedItem !== item) {
-                const tempBackground = draggedItem.style.backgroundImage;
-                draggedItem.style.backgroundImage = item.style.backgroundImage;
+            if (draggedItem && draggedItem !== item) {
+                // Swap background images
+                let tempBackground = window.getComputedStyle(draggedItem).backgroundImage;
+                draggedItem.style.backgroundImage = window.getComputedStyle(item).backgroundImage;
                 item.style.backgroundImage = tempBackground;
             }
             item.style.opacity = '1';
